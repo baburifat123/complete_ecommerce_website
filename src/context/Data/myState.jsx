@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MyContext from "./myContext";
+import MyContext from "./MyContext.jsx";
 
 function MyState(props) {
   const [mode, setmode] = useState("light");

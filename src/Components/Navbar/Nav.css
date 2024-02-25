@@ -1,0 +1,20 @@
+@media only screen and (max-width: 767px) {
+  .nav2 ul {
+    display: flex;
+    flex-direction: column;
+  }
+  .nav2 {
+    margin-top: 390px;
+    position: absolute;
+    background: gainsboro;
+    padding: 8px;
+    border-radius: 5px;
+  }
+}
+.nav2 ul li hr {
+  border: none;
+  width: 90%;
+  height: 3px;
+  border-radius: 10px;
+  background: #ff4141;
+}

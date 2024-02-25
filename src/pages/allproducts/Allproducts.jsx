@@ -1,7 +1,8 @@
 import React from "react";
+import Layout from "../../Components/Layout/Layout";
 
 const Allproducts = () => {
-  return <div>hello</div>;
+  return <Layout>hellosssss</Layout>;
 };
 
 export default Allproducts;

@@ -1,8 +1,11 @@
-import React from "react";
 import Layout from "../../Components/Layout/Layout";
 
 const Oder = () => {
-  return <Layout>oder pages</Layout>;
+  return (
+    <Layout>
+      <h1>Hello</h1>
+    </Layout>
+  );
 };
 
 export default Oder;
