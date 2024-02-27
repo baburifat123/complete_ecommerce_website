@@ -3,10 +3,18 @@ import { AiOutlineClose } from "react-icons/ai";
 import { CiMenuBurger } from "react-icons/ci";
 import { PiShoppingCartSimple } from "react-icons/pi";
 import { Link } from "react-router-dom";
+import { IoIosLogOut } from "react-icons/io";
 import "./Nav.css";
 const Nav = () => {
   const [menu, setmenu] = useState("allproduct");
   const [open, setopen] = useState(false);
+  const users = JSON.parse(localStorage.getItem("user"));
+  console.log(users.email);
+  const logout = () => {
+    localStorage.clear("user");
+    window.location.href = "/login";
+  };
+
   return (
     <>
       <div className="flex items-center justify-around bg-slate-400 p-4">
@@ -44,17 +52,28 @@ const Nav = () => {
               {menu === "order" ? <hr /> : <></>}
             </li>
 
-            <li
-              onClick={() => {
-                setmenu("dashboard");
-              }}
-            >
-              <Link to={"/dashboard"}> Admin </Link>
-              {menu === "dashboard" ? <hr /> : <></>}{" "}
-            </li>
-            <a className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer">
-              Logout
-            </a>
+            {users?.email === "jadu@gmail.com" ? (
+              <li
+                onClick={() => {
+                  setmenu("dashboard");
+                }}
+              >
+                <Link to={"/dashboard"}> Admin </Link>
+                {menu === "dashboard" ? <hr /> : <></>}{" "}
+              </li>
+            ) : (
+              ""
+            )}
+            {users ? (
+              <a
+                onClick={logout}
+                className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
+              >
+                <IoIosLogOut></IoIosLogOut>
+              </a>
+            ) : (
+              ""
+            )}
             <div className="flex items-center gap-1">
               <img
                 className="w-[30px] bg-cover"
