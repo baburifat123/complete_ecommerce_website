@@ -18,8 +18,8 @@ const Nav = () => {
 
   return (
     <>
-      <div className="flex items-center justify-around bg-slate-400 p-4">
-        <div className="me lg:hidden md:hidden">
+      <div className="flex items-center justify-around bg-slate-400 p-4 ">
+        <div className="me lg:hidden ">
           <button onClick={() => setopen(!open)}>
             {open ? (
               <AiOutlineClose className="text-3xl" />
@@ -35,7 +35,7 @@ const Nav = () => {
         </div>
         <div className={` nav2 ${open ? "block" : "hidden"} lg:flex flex-col`}>
           <ul id="n" className="flex gap-5 items-center">
-            <li
+            {/* <li
               onClick={() => {
                 setmenu("allproducts");
               }}
@@ -45,7 +45,7 @@ const Nav = () => {
                 All Product{" "}
               </Link>
               {menu === "allproducts" ? <hr /> : <></>}
-            </li>
+            </li> */}
 
             <li
               onClick={() => {
@@ -87,12 +87,12 @@ const Nav = () => {
             <div className="flex items-center gap-1">
               <img
                 className="w-[35px] bg-cover"
-                src="src\assets\flag.png"
+                src="https://i.ibb.co/CWCTCyn/bd-flag.png"
                 alt=""
               />
               <h1 className="text-xl">BD</h1>
             </div>
-            <button>Profile</button>
+            {/* <button>Profile</button> */}
             <div>
               <h1 className="absolute ml-6 text-white -mt-1  text-center font-semibold  bg-red-500 w-6 h-6 rounded-full">
                 {cartitem.length}
@@ -105,6 +105,7 @@ const Nav = () => {
           </ul>
         </div>
       </div>
+      {/* mobile  */}
     </>
   );
 };

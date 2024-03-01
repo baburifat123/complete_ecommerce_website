@@ -1,10 +1,11 @@
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { toast } from "react-toastify";
 
 import { addToCart } from "../../Redux/CartSlice";
 
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import Layout from "../../Components/Layout/Layout";
 import { FireDB } from "../../Firebase/FirebaseConfig";
 
@@ -23,10 +24,15 @@ function ProductInfo() {
       console.log(error);
     }
   };
-
+  const dispase = useDispatch();
+  const cartitem = useSelector((state) => state.cart);
+  const addcart = (product) => {
+    dispase(addToCart(product));
+    toast.success("cart add");
+  };
   useEffect(() => {
     getProductData();
-  }, []);
+  }, [cartitem]);
 
   return (
     <Layout>
@@ -153,7 +159,7 @@ function ProductInfo() {
                     ₹{products.price}
                   </span>
                   <button
-                    onClick={() => addToCart(products)}
+                    onClick={() => addcart(products)}
                     className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
                   >
                     Add To Cart

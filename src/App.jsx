@@ -15,7 +15,7 @@ import Cart from "./pages/Cart/Cart";
 import Home from "./pages/Home/Home";
 import Nopage from "./pages/Nopage/Nopage";
 import Oder from "./pages/Oder/Oder";
-import Allproducts from "./pages/allproducts/Allproducts";
+// import Allproducts from "./pages/allproducts/Allproducts";
 import ProductInfo from "./pages/productInfo/ProductInfo";
 import Login from "./pages/registions/Login";
 import Signup from "./pages/registions/Signup";
@@ -42,7 +42,7 @@ function App() {
               </ProtectedRoutedAdmin>
             }
           />
-          <Route path="/allproducts" element={<Allproducts />} />
+          {/* <Route path="/allproducts" element={<Allproducts />} /> */}
           <Route path="/login" element={<Login></Login>} />
           <Route path="/signup" element={<Signup></Signup>} />
           <Route path="/productinfo/:id" element={<ProductInfo />} />

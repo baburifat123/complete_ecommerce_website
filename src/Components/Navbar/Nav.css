@@ -1,14 +1,15 @@
 @media only screen and (max-width: 767px) {
   .nav2 ul {
     display: flex;
-    flex-direction: column;
   }
+
   .nav2 {
-    margin-top: 390px;
+    margin-top: 125px;
     position: absolute;
     background: gainsboro;
     padding: 8px;
     border-radius: 5px;
+    width: 400px;
   }
 }
 .nav2 ul li hr {

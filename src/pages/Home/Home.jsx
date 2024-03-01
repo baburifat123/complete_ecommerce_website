@@ -4,7 +4,7 @@ import HeroSection from "../../Components/HeroSection/HeroSection";
 import Layout from "../../Components/Layout/Layout";
 import Products from "../../Components/Products/Products";
 import Track from "../../Components/Track/Track";
-import Testimonial from "../../Components/testimonial/Testimonial";
+// import Testimonial from "../../Components/testimonial/Testimonial";
 import { addToCart, deleteFromCart } from "../../Redux/CartSlice";
 
 const Home = () => {
@@ -25,7 +25,7 @@ const Home = () => {
         <Filter></Filter>
         <Products></Products>
         <Track></Track>
-        <Testimonial></Testimonial>
+        {/* <Testimonial></Testimonial> */}
       </Layout>
     </div>
   );
