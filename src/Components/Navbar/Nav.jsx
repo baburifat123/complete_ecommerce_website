@@ -1,19 +1,20 @@
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { CiMenuBurger } from "react-icons/ci";
-import { PiShoppingCartSimple } from "react-icons/pi";
-import { Link } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
+import { PiShoppingCartSimple } from "react-icons/pi";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import "./Nav.css";
 const Nav = () => {
   const [menu, setmenu] = useState("allproduct");
   const [open, setopen] = useState(false);
   const users = JSON.parse(localStorage.getItem("user"));
-  console.log(users.email);
   const logout = () => {
     localStorage.clear("user");
     window.location.href = "/login";
   };
+  const cartitem = useSelector((state) => state.cart);
 
   return (
     <>
@@ -39,7 +40,10 @@ const Nav = () => {
                 setmenu("allproducts");
               }}
             >
-              <Link to={"/allproducts"}> All Product </Link>
+              <Link to={"/allproducts"} className="text-2xl">
+                {" "}
+                All Product{" "}
+              </Link>
               {menu === "allproducts" ? <hr /> : <></>}
             </li>
 
@@ -48,7 +52,10 @@ const Nav = () => {
                 setmenu("order");
               }}
             >
-              <Link to={"/order"}> Order</Link>
+              <Link to={"/order"} className="text-2xl">
+                {" "}
+                Order
+              </Link>
               {menu === "order" ? <hr /> : <></>}
             </li>
 
@@ -58,7 +65,10 @@ const Nav = () => {
                   setmenu("dashboard");
                 }}
               >
-                <Link to={"/dashboard"}> Admin </Link>
+                <Link to={"/dashboard"} className="text-2xl">
+                  {" "}
+                  Admin{" "}
+                </Link>
                 {menu === "dashboard" ? <hr /> : <></>}{" "}
               </li>
             ) : (
@@ -69,21 +79,29 @@ const Nav = () => {
                 onClick={logout}
                 className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
               >
-                <IoIosLogOut></IoIosLogOut>
+                <IoIosLogOut className="text-3xl"></IoIosLogOut>
               </a>
             ) : (
               ""
             )}
             <div className="flex items-center gap-1">
               <img
-                className="w-[30px] bg-cover"
+                className="w-[35px] bg-cover"
                 src="src\assets\flag.png"
                 alt=""
               />
-              <h1>BD</h1>
+              <h1 className="text-xl">BD</h1>
             </div>
             <button>Profile</button>
-            <PiShoppingCartSimple></PiShoppingCartSimple>
+            <div>
+              <h1 className="absolute ml-6 text-white -mt-1  text-center font-semibold  bg-red-500 w-6 h-6 rounded-full">
+                {cartitem.length}
+              </h1>
+              <Link to={"/cart"}>
+                {" "}
+                <PiShoppingCartSimple className="text-4xl"></PiShoppingCartSimple>
+              </Link>
+            </div>
           </ul>
         </div>
       </div>

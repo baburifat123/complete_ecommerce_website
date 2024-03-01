@@ -1,9 +1,18 @@
+import { useContext } from "react";
 import { AiFillShopping } from "react-icons/ai";
 import { FaCartPlus, FaUser } from "react-icons/fa";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
+import { Link } from "react-router-dom";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import myContext from "../../../context/Data/MyContext";
 
 function DashboardTab() {
+  const add = () => {
+    window.location.href = "/addproduct";
+  };
+  const context = useContext(myContext);
+  const { product, edithandle, deleteProduct, order, users } = context;
+  console.log(users);
   return (
     <>
       <div className="container mx-auto">
@@ -54,7 +63,7 @@ function DashboardTab() {
                     className="focus:outline-none text-white bg-pink-600 shadow-[inset_0_0_10px_rgba(0,0,0,0.6)] border hover:bg-pink-700 outline-0 font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
                   >
                     {" "}
-                    <div className="flex gap-2 items-center">
+                    <div onClick={add} className="flex gap-2 items-center">
                       Add Product <FaCartPlus size={20} />
                     </div>
                   </button>
@@ -86,63 +95,73 @@ function DashboardTab() {
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="">
-                      <tr className="bg-gray-50 border-b  dark:border-gray-700">
-                        <td className="px-6 py-4 text-black ">1.</td>
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-medium text-black whitespace-nowrap"
-                        >
-                          <img
-                            className="w-16"
-                            src="https://dummyimage.com/720x400"
-                            alt="img"
-                          />
-                        </th>
-                        <td className="px-6 py-4 text-black ">Title</td>
-                        <td className="px-6 py-4 text-black ">₹100</td>
-                        <td className="px-6 py-4 text-black ">pots</td>
-                        <td className="px-6 py-4 text-black ">12 Aug 2019</td>
-                        <td className="px-6 py-4">
-                          <div className=" flex gap-2">
-                            <div className=" flex gap-2 cursor-pointer text-black ">
-                              <div>
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  strokeWidth={1.5}
-                                  stroke="currentColor"
-                                  className="w-6 h-6"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                                  />
-                                </svg>
-                              </div>
-                              <div>
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  strokeWidth={1.5}
-                                  stroke="currentColor"
-                                  className="w-6 h-6"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                                  />
-                                </svg>
+
+                    {product.map((item, index) => (
+                      <tbody className="" key={index}>
+                        <tr className="bg-gray-50 border-b dark:border-gray-700">
+                          <td className="px-6 py-4 text-black">{index + 1}</td>
+                          <th
+                            scope="row"
+                            className="px-6 py-4 font-medium text-black whitespace-nowrap"
+                          >
+                            <img
+                              className="w-16"
+                              src={item.imageUrl}
+                              alt="img"
+                            />
+                          </th>
+                          <td className="px-6 py-4 text-black">{item.title}</td>
+                          <td className="px-6 py-4 text-black">
+                            ${item.price}
+                          </td>
+                          <td className="px-6 py-4 text-black">
+                            {item.category}
+                          </td>
+                          <td className="px-6 py-4 text-black">{item.date}</td>
+                          <td className="px-6 py-4">
+                            <div className="flex gap-2">
+                              <div className="flex gap-2 cursor-pointer text-black">
+                                <div>
+                                  <svg
+                                    onClick={() => deleteProduct(item)}
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-6 h-6"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                                    />
+                                  </svg>
+                                </div>
+                                <Link to={"/updateproduct"}>
+                                  <div onClick={() => edithandle(item)}>
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      strokeWidth={1.5}
+                                      stroke="currentColor"
+                                      className="w-6 h-6"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                                      />
+                                    </svg>
+                                  </div>
+                                </Link>
                               </div>
                             </div>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
+                          </td>
+                        </tr>
+                      </tbody>
+                    ))}
                   </table>
                 </div>
               </div>
@@ -150,11 +169,11 @@ function DashboardTab() {
             <TabPanel>
               {/* <Order order={order} setOrder={setOrder} setLoading={setLoading} /> */}
               <div className="relative overflow-x-auto mb-16">
-                <h1 className=" text-center mb-5 text-3xl font-semibold underline">
+                <h1 className="text-center mb-5 text-3xl font-semibold underline">
                   Order Details
                 </h1>
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                  <thead className="text-xs text-black uppercase bg-gray-200 ">
+                  <thead className="text-xs text-black uppercase bg-gray-200">
                     <tr>
                       <th scope="col" className="px-6 py-3">
                         Payment Id
@@ -192,31 +211,51 @@ function DashboardTab() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="bg-gray-50 border-b  dark:border-gray-700">
-                      <td className="px-6 py-4 text-black ">3393939</td>
-                      <th
-                        scope="row"
-                        className="px-6 py-4 font-medium text-black whitespace-nowrap"
-                      >
-                        <img
-                          className="w-16"
-                          src="https://dummyimage.com/720x400"
-                          alt="img"
-                        />
-                      </th>
-                      <td className="px-6 py-4 text-black ">Title</td>
-                      <td className="px-6 py-4 text-black ">₹100</td>
-                      <td className="px-6 py-4 text-black ">pots</td>
-
-                      <td className="px-6 py-4 text-black ">name</td>
-                      <td className="px-6 py-4 text-black ">india</td>
-                      <td className="px-6 py-4 text-black ">82828</td>
-                      <td className="px-6 py-4 text-black ">929929929929</td>
-                      <td className="px-6 py-4 text-black ">
-                        kkakka@gmail.com
-                      </td>
-                      <td className="px-6 py-4 text-black ">12 Aug 2019</td>
-                    </tr>
+                    {order.map((alloder, index) =>
+                      alloder.cartitem.map((item, id) => (
+                        <tr
+                          key={id}
+                          className="bg-gray-50 border-b dark:border-gray-700"
+                        >
+                          <td className="px-6 py-4 text-black">{item.id}</td>
+                          <th
+                            scope="row"
+                            className="px-6 py-4 font-medium text-black whitespace-nowrap"
+                          >
+                            <img
+                              className="w-16"
+                              src={item.imageUrl}
+                              alt="img"
+                            />
+                          </th>
+                          <td className="px-6 py-4 text-black">{item.title}</td>
+                          <td className="px-6 py-4 text-black">
+                            ₹{item.price}
+                          </td>
+                          <td className="px-6 py-4 text-black">
+                            {item.category}
+                          </td>
+                          <td className="px-6 py-4 text-black">
+                            {alloder.addressInfo.name}
+                          </td>
+                          <td className="px-6 py-4 text-black">
+                            {alloder.addressInfo.address}
+                          </td>
+                          <td className="px-6 py-4 text-black">
+                            {alloder.addressInfo.pincode}
+                          </td>
+                          <td className="px-6 py-4 text-black">
+                            {alloder.addressInfo.phoneNumber}
+                          </td>
+                          <td className="px-6 py-4 text-black">
+                            {alloder.email}
+                          </td>
+                          <td className="px-6 py-4 text-black">
+                            {alloder.date}
+                          </td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -231,40 +270,31 @@ function DashboardTab() {
                   <thead className="text-xs text-black uppercase bg-gray-200 ">
                     <tr>
                       <th scope="col" className="px-6 py-3">
-                        S.No
+                        s.n
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Uid
                       </th>
 
                       <th scope="col" className="px-6 py-3">
                         Name
                       </th>
-                      <th scope="col" className="px-6 py-3">
-                        Address
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        Pincode
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        Phone Number
-                      </th>
+
                       <th scope="col" className="px-6 py-3">
                         Email
                       </th>
-                      <th scope="col" className="px-6 py-3">
-                        Date
-                      </th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr className="bg-gray-50 border-b  dark:border-gray-700">
-                      <td className="px-6 py-4 text-black ">1.</td>
-                      <td className="px-6 py-4 text-black ">Name</td>
-                      <td className="px-6 py-4 text-black ">Address</td>
-                      <td className="px-6 py-4 text-black ">181919</td>
-                      <td className="px-6 py-4 text-black ">1991818818</td>
-                      <td className="px-6 py-4 text-black ">kkk@gmail.com</td>
-                      <td className="px-6 py-4 text-black ">12 Aug 2019</td>
-                    </tr>
-                  </tbody>
+                  {users.map((item, index) => (
+                    <tbody key={index}>
+                      <tr className="bg-gray-50 border-b  dark:border-gray-700">
+                        <td className="px-6 py-4 text-black ">{index + 1}</td>
+                        <td className="px-6 py-4 text-black ">{item.uid}</td>
+                        <td className="px-6 py-4 text-black ">{item.names}</td>
+                        <td className="px-6 py-4 text-black ">{item.email}</td>
+                      </tr>
+                    </tbody>
+                  ))}
                 </table>
               </div>
             </TabPanel>
