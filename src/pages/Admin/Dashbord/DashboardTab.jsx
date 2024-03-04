@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AiFillShopping } from "react-icons/ai";
 import { FaCartPlus, FaUser } from "react-icons/fa";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
@@ -12,7 +12,7 @@ function DashboardTab() {
   };
   const context = useContext(myContext);
   const { product, edithandle, deleteProduct, order, users } = context;
-  const [complete, setcomplete] = useState(false);
+
   return (
     <>
       <div className="container mx-auto">
@@ -255,18 +255,6 @@ function DashboardTab() {
                           </td>
                           <td className="px-6 py-4 text-black">
                             {alloder.date}
-                          </td>
-                          <td className="px-6 py-4 text-black">
-                            <button
-                              onClick={() => setcomplete(!complete)}
-                              className={`${
-                                complete
-                                  ? "bg-green-500 p-2 rounded-md text-base font-medium text-white"
-                                  : "bg-red-500 p-2 rounded-md text-base font-medium text-white"
-                              }`}
-                            >
-                              {complete ? "Completed" : "Incomplete"}
-                            </button>
                           </td>
                         </tr>
                       ))

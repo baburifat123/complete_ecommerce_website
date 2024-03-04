@@ -42,7 +42,7 @@ function Signup() {
       setpassword("");
       setname("");
       setLoading(false);
-      return navigate("/");
+      return navigate("/login");
     } catch (error) {
       console.log(error);
       setLoading(false);

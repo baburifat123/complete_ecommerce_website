@@ -11,7 +11,7 @@ const Oder = () => {
     <Layout>
       {order.length > 0 ? (
         <>
-          <div className=" h-[80vh] pt-10">
+          <div className=" h-full pt-10">
             {order
               .filter((obj) => obj.userid == userid)
               .map((order, index) => {

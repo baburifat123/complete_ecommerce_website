@@ -1,5 +1,5 @@
 import { doc, getDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 
 import { addToCart } from "../../Redux/CartSlice";
@@ -8,8 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Layout from "../../Components/Layout/Layout";
 import { FireDB } from "../../Firebase/FirebaseConfig";
+import myContext from "../../context/Data/MyContext";
 
 function ProductInfo() {
+  const context = useContext(myContext);
+  const { hide, sethide } = context;
   const [products, setProducts] = useState("");
   const params = useParams();
   // console.log(products.title)
@@ -180,6 +183,18 @@ function ProductInfo() {
               </div>
             </div>
           )}
+        </div>
+        <div>
+          <h1 className={`${hide ? "text-red-500" : "hidden"}`}>Comment</h1>
+
+          <button
+            onClick={() => sethide(!hide)}
+            className={`${
+              hide ? "bg-green-500" : "bg-red-500"
+            } p-2 rounded-md text-base font-medium text-white`}
+          >
+            {hide ? "Completed" : "Incomplete"}
+          </button>
         </div>
       </section>
     </Layout>

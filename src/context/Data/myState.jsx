@@ -131,7 +131,8 @@ function MyState(props) {
   const [searchkey, setSearchkey] = useState("");
   const [filterType, setFilterType] = useState("");
   const [filterPrice, setFilterPrice] = useState("");
-
+  // approved comment
+  const [hide, sethide] = useState(false);
   // auto feach
   useEffect(() => {
     getProducts();
@@ -159,6 +160,8 @@ function MyState(props) {
         setFilterPrice,
         filterType,
         setFilterType,
+        hide,
+        sethide,
       }}
     >
       {props.children}
